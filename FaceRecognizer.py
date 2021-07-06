@@ -55,7 +55,7 @@ def face_recognize():
 
             profile = None
 
-            if (dist < 60):
+            if (dist < 50):
                 profile = getProfile(id)
 
             # Show info name or unknown if not found

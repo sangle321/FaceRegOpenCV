@@ -8,7 +8,11 @@ detector = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
 
 def getImagesAndLabels(path):
     # Get all file in foldel dataSet
-    imagePaths = [os.path.join(path, f) for f in os.listdir(path)]
+    dir_Paths = [os.path.join(path, f) for f in os.listdir(path)]
+    imagePaths = []
+    for i in range(len(dir_Paths)):
+        for file_img in os.listdir(dir_Paths[i]):
+            imagePaths.append(dir_Paths[i]+'/' + file_img)
     # create empth face list
     faceSamples = []
     # create empty ID list

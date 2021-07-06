@@ -1,4 +1,5 @@
 import cv2
+import os
 import sqlite3
 
 detector = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
@@ -44,12 +45,16 @@ def create_new_user():
                       (centerW + sizeboxW // 2, centerH + sizeboxH // 2), (255, 255, 255), 5)
 
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-
+        parent_dir = "dataSet"
+        img_dir = id
+        path = os.path.join(parent_dir, img_dir)
+        if not os.path.isdir(path):
+            os.mkdir(path)
         faces = detector.detectMultiScale(gray, 1.3, 5)
         for (x, y, w, h) in faces:
             cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
             sampleNum = sampleNum + 1
-            cv2.imwrite("dataSet/User." + id + '.' + str(sampleNum) + ".jpg", gray[y:y + h, x:x + w])
+            cv2.imwrite(parent_dir+'/'+id +"/User." + id + '.' + str(sampleNum) + ".jpg", gray[y:y + h, x:x + w])
 
         cv2.imshow('frame', img)
         # Check if enter q or over 100 photos
